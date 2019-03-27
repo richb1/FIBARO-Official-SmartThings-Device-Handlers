@@ -16,7 +16,6 @@ metadata {
         capability "Switch"
         capability "Energy Meter"
         capability "Power Meter"
-        capability "Button"
         capability "Configuration"
         capability "Health Check"
 
