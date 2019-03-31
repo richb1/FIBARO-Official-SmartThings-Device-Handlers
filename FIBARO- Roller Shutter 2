@@ -19,6 +19,8 @@ metadata {
         capability "Power Meter"
         capability "Configuration"
         capability "Health Check"
+        capability "Switch"
+        capability "Switch Level"
 
         command "reset"
         command "refresh"
@@ -105,13 +107,19 @@ metadata {
     }
 }
 
+def on() { open() }
+
 def open() { setFibaro(99,99) }
+
+def off() { close() }
 
 def close() { setFibaro(0,0) }
 
 def stop() { encap(zwave.switchMultilevelV3.switchMultilevelStopLevelChange()) }
 
 def calibrate() { encap(zwave.configurationV2.configurationSet(configurationValue: intToParam(1, 1), parameterNumber: 29, size: 1)) }
+
+def setLevel(Integer level) { setPosition(level) }
 
 def setPosition(Integer value) {
     if (device.currentValue("position") > value) {
